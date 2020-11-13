@@ -15,7 +15,10 @@ License: GNU GENERAL PUBLIC LICENSE (GPL)
 
 Example:
 Paul Lu
-CCID:  paullu
+CCID:  rinehart
+ID:    1670709
+
+Weekly assignment #6
 """
 
 HUMAN = -1
