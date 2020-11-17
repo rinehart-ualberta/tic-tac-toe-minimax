@@ -14,9 +14,8 @@ Year: 2017
 License: GNU GENERAL PUBLIC LICENSE (GPL)
 
 Example:
-Paul Lu
 CCID:  rinehart
-ID:    1670709
+ID:    1671709
 
 Weekly assignment #6
 """
