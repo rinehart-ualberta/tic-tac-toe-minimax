@@ -34,10 +34,10 @@ class Board:
 
     def __str__(self):
         print(self.board)
-        return
+        return "Hello"
 
     def __repr__(self):
-        return
+        return "error"
 
     def get_human(self):
         return self.HUMAN
@@ -66,13 +66,13 @@ class Board:
         final_str = ""
         str_line = '---------------'
 
-        final_str += '\n' + str_line
+        print('\n' + str_line)
         for row in self.get_board():
             for cell in row:
                 symbol = chars[cell]
-                final_str += (f'| {symbol} |')
-            final_str += '\n' + str_line
-        return final_str
+                print(f'| {symbol} |',end='')
+            print('\n' + str_line)
+        return
 
     def evaluate(self):
         """
@@ -80,9 +80,9 @@ class Board:
         :param state: the state of the current board
         :return: +1 if the computer wins; -1 if the human wins; 0 draw
         """
-        if wins(self.COMP):
+        if self.wins(self.COMP):
             score = +1
-        elif wins(self.HUMAN):
+        elif self.wins(self.HUMAN):
             score = -1
         else:
             score = 0
@@ -124,7 +124,7 @@ class Board:
         :param state: the state of the current board
         :return: True if the human or computer wins
         """
-        return wins(self.HUMAN) or wins(self.COMP)
+        return self.wins(self.HUMAN) or self.wins(self.COMP)
 
 
     def empty_cells(self):
@@ -135,7 +135,7 @@ class Board:
         """
         cells = []
 
-        for x, row in enumerate(self.get_board):
+        for x, row in enumerate(self.get_board()):
             for y, cell in enumerate(row):
                 if cell == 0:
                     cells.append([x, y])
@@ -151,20 +151,28 @@ class Board:
         :param player: an human or a computer
         :return: a list with [the best row, best col, best score]
         """
-        if player == COMP:
+        game_board = self.get_board()
+
+        if player == self.get_comp():
             best = [-1, -1, -infinity]
         else:
             best = [-1, -1, +infinity]
 
-        if depth == 0 or game_over():
-            score = evaluate()
+        if depth == 0 or self.game_over():
+            score = self.evaluate()
             return [-1, -1, score]
 
-        for cell in empty_cells():
+        for cell in self.empty_cells():
             x, y = cell[0], cell[1]
-            self.get_board[x][y] = player
-            score = minimax(depth - 1, -player)
-            self.get_board[x][y] = 0
+
+            game_board[x][y] = player
+            self.set_board(game_board)
+
+            score = self.minimax(depth - 1, player)
+
+            game_board[x][y] = 0
+            self.set_board(game_board)
+
             score[0], score[1] = x, y
 
             if player == self.COMP:
@@ -210,7 +218,9 @@ class State:
         :param y: Y coordinate
         :return: True if the board[x][y] is empty
         """
-        if [x, y] in empty_cells(board):
+        print(board.empty_cells())
+        print([x,y])
+        if [x, y] in board.empty_cells():
             return True
         else:
             return False
@@ -222,8 +232,12 @@ class State:
         :param y: Y coordinate
         :param player: the current player
         """
-        if self.valid_move(x, y):
-            board.set_board(board.get_board()[x][y] = player)
+
+        game_board = board.get_board()
+
+        if self.valid_move(board, x, y):
+            game_board[x][y] = player
+            board.set_board(game_board)
             return True
         else:
             return False
@@ -236,8 +250,8 @@ class State:
         :param h_choice: human's choice X or O
         :return:
         """
-        depth = len(empty_cells(board))
-        if depth == 0 or game_over(board):
+        depth = len(board.empty_cells())
+        if depth == 0 or board.game_over():
             return
 
         self.clean()
@@ -248,10 +262,10 @@ class State:
             x = choice([0, 1, 2])
             y = choice([0, 1, 2])
         else:
-            move = board.minimax(depth, COMP)
+            move = board.minimax(depth, board.get_comp())
             x, y = move[0], move[1]
 
-        self.set_move(x, y, COMP)
+        self.set_move(board,x, y, board.get_comp())
         # Paul Lu.  Go full speed.
         # time.sleep(1)
 
@@ -283,7 +297,7 @@ class State:
             try:
                 move = int(input('Use numpad (1..9): '))
                 coord = moves[move]
-                can_move = self.set_move(coord[0], coord[1], HUMAN)
+                can_move = self.set_move(board, coord[0], coord[1], board.get_human())
 
                 if not can_move:
                     print('Bad move')
@@ -354,12 +368,12 @@ if __name__ == '__main__':
         state.ai_turn(board, comp, human)
 
     # Game over message
-    if board.wins(board.get_human):
+    if board.wins(board.get_human()):
         state.clean()
         print(f'Human turn [{human}]')
         board.render(comp, human)
         print('YOU WIN!')
-    elif board.wins(board.get_comp):
+    elif board.wins(board.get_comp()):
         state.clean()
         print(f'Computer turn [{comp}]')
         board.render(comp, human)
