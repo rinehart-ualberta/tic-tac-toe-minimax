@@ -78,7 +78,7 @@ class Board:
         """
         Function to heuristic evaluation of state.
         :param state: the state of the current board
-        :return: +1 if the computer wins; -1 if the human wins; 0 draw
+        :return: +1 if the computer wins; -1 if the hu  man wins; 0 draw
         """
         if self.wins(self.COMP):
             score = +1
@@ -164,15 +164,11 @@ class Board:
 
         for cell in self.empty_cells():
             x, y = cell[0], cell[1]
-
             game_board[x][y] = player
             self.set_board(game_board)
-
             score = self.minimax(depth - 1, player)
-
             game_board[x][y] = 0
             self.set_board(game_board)
-
             score[0], score[1] = x, y
 
             if player == self.COMP:
@@ -218,8 +214,6 @@ class State:
         :param y: Y coordinate
         :return: True if the board[x][y] is empty
         """
-        print(board.empty_cells())
-        print([x,y])
         if [x, y] in board.empty_cells():
             return True
         else:
@@ -327,7 +321,7 @@ class State:
             self.c_choice = 'X'
         while self.first != 'Y' and self.first != 'N':
             try:
-                self.first = input('First to start?[y/n]: ').upper()
+                self.first = input('\nFirst to start?[y/n]: ').upper()
             except (EOFError, KeyboardInterrupt):
                 print('Bye')
                 exit()
@@ -344,19 +338,21 @@ class State:
         self.c_choice = choice
 
 if __name__ == '__main__':
+
+    randomseed(274 + 2020)
+
     board = Board()
     state = State()
     """
     Main function that calls all functions
     """
-    randomseed(274 + 2020)
+
     state.clean()
     state.init_choice()
     choices = state.get_choice()
     human = choices[0]
     comp = choices[1]
     first = choices[2]
-    state.clean()
 
     # Main loop of this game
     while len(board.empty_cells()) > 0 and not board.game_over():
