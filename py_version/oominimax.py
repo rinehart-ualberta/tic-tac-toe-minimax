@@ -166,7 +166,7 @@ class Board:
             x, y = cell[0], cell[1]
             game_board[x][y] = player
             self.set_board(game_board)
-            score = self.minimax(depth - 1, player)
+            score = self.minimax(depth - 1, -player)
             game_board[x][y] = 0
             self.set_board(game_board)
             score[0], score[1] = x, y

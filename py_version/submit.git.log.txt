@@ -1,0 +1,49 @@
+commit b7574d630e93d5dbb19cc10e0d41be9033bcb4ae
+Author: rinehart-ualberta <rinehart@ualberta.ca>
+Date:   Mon Nov 16 19:59:57 2020 -0700
+
+    file format fixed and first output files made
+    
+    Fixed now just need to figure out why the ai is placing weird
+
+commit 05e3a99fcba6a95760a6deb779c63fadf8dec307
+Author: rinehart-ualberta <>
+Date:   Mon Nov 16 19:09:44 2020 -0700
+
+    Fixed bugs with render
+    
+    Bugs with render fixed and program is in a running state in a oo format.
+
+commit ef9c73de7d30959e52d1cdba3a5456d02c8a1c7b
+Author: rinehart-ualberta <rinehart@ualberta.ca>
+Date:   Mon Nov 16 18:00:53 2020 -0700
+
+    Fully implemented functions
+    
+    Rough draft of importing all functions into a oo format and fixed issue with id and student name
+
+commit ba7a620e42f2d4aa3ae2ba1f46f0c6edea2e0366
+Author: rinehart-ualberta <rinehart@ualberta.ca>
+Date:   Mon Nov 16 15:48:26 2020 -0700
+
+    Imported functions into classes
+    
+    Imported all functions from original minimax program. Sorted into two classes Board and State with functions requiring state being put into the Board class and function without state being put into State class
+
+commit 3d9780df4b84ff03cea13b2f0f9de9469012817c
+Author: rinehart-ualberta <rinehart@ualberta.ca>
+Date:   Mon Nov 16 15:03:52 2020 -0700
+
+    Create oominimax.py base
+    
+    First Version of oo version of minimax with base concept
+
+commit d7b2485f83015a96756970ed911431f9c09386ac
+Author: rinehart-ualberta <74372408+rinehart-ualberta@users.noreply.github.com>
+Date:   Thu Nov 12 20:00:29 2020 -0700
+
+    Added CCID and ID
+    
+    Added id and ccid to the project
+
+   Initial commit
